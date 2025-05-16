@@ -12,6 +12,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 
+// Adding port
+const PORT = process.env.PORT || 3000;
 
 
 
@@ -115,8 +117,9 @@ fastify.get('/', async (_request, reply) => {
 });
 
 
-// Listen on port 3001 for development purposes since vite has 3000 very important.
-fastify.listen({ port: 3001 }, err => {
+// Listen on port 3001 for development purposes since vite has 3000 very important
+// Added 0.0.0.0 to ensure no binding issues.
+fastify.listen({ port: PORT, host: '0.0.0.0' }, err => {
     if (err) {
         fastify.log.error(err);
         process.exit(1);
