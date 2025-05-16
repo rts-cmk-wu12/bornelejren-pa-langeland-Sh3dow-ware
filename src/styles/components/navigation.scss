@@ -1,0 +1,114 @@
+@use "../utils/variables" as *;
+
+.menu {
+  display: flex;
+  padding: 10px;
+  width: 100%;
+  background-color: $header-background;
+
+  &__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    img {
+      width: 100px;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    .menu__toggle {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: white;
+      display: none;
+
+      svg {
+        stroke: white;
+      }
+    }
+  }
+}
+
+.nav {
+  display: flex;
+  justify-content: space-around;
+  padding: 20px;
+  width: 100%;
+
+  &__item {
+    &--link {
+      color: white;
+      font-family: $urbanist-font;
+      font-weight: bold;
+      text-decoration: none;
+    }
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    visibility: collapse;
+    pointer-events: none;
+
+    &.nav--open {
+      animation: FadeIn 0.6s ease forwards;
+    }
+
+    &.nav--closing {
+      animation: FadeOut 0.6s ease forwards;
+    }
+
+    @keyframes FadeIn {
+      0% {
+        max-height: 0;
+        opacity: 0;
+        transform: scale(0.98) translateY(-10px);
+        visibility: collapse;
+        filter: blur(10px);
+      }
+      100% {
+        max-height: 500px;
+        opacity: 1;
+        transform: scale(1) translateY(0);
+        visibility: visible;
+        pointer-events: all;
+      }
+    }
+
+    @keyframes FadeOut {
+      0% {
+        max-height: 500px;
+        opacity: 1;
+        transform: scale(1) translateY(0);
+        visibility: visible;
+      }
+      100% {
+        max-height: 0;
+        opacity: 0;
+        transform: scale(0.98) translateY(-20px);
+        visibility: collapse;
+        pointer-events: none;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .menu {
+    flex-direction: column;
+  }
+
+  .menu__top {
+    .menu__toggle {
+      display: block;
+    }
+  }
+}

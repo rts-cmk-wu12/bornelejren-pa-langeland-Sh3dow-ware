@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="JetClientState">
+    <option name="draftsState">
+      <draftsState>
+        <option name="requests">
+          <list>
+            <requestState>
+              <option name="body">
+                <bodyState>
+                  <option name="raw" value="{&#10;  &quot;supportType&quot;:&quot;no&quot;,&#10;  &quot;companyName&quot;:&quot;no&quot;,&#10;  &quot;email&quot;:&quot;no&quot;,&#10;  &quot;address&quot;:&quot;no&quot;,&#10;  &quot;phone&quot;:&quot;no&quot;,&#10;  &quot;amount&quot;:&quot;no&quot;&#10;}" />
+                  <option name="type" value="JSON" />
+                </bodyState>
+              </option>
+              <option name="id" value="15fcd8c1-ed84-4fae-bbcd-2df1307b3ffc" />
+              <option name="method" value="POST" />
+              <option name="name" value="Draft" />
+              <option name="url" value="https://lejren-app-d53e4e2e9137.herokuapp.com/sendInformation" />
+            </requestState>
+          </list>
+        </option>
+      </draftsState>
+    </option>
+    <option name="id" value="97c5f243-dc0e-4494-91d0-cce0beacc928" />
+    <option name="version" value="6" />
+  </component>
+</project>

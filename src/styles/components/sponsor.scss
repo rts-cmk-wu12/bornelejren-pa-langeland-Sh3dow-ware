@@ -1,0 +1,61 @@
+@use "../utils/variables" as *;
+.sponsor {
+  background-color: $default-background;
+  font-family:  $urbanist-font;
+  padding: 20px;
+
+  &__section {
+    margin-top: 20px;
+    &__container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+  }
+
+  &__text {
+    font-size: 16px;
+    color: #333;
+    line-height: 1.5;
+    background: white;
+    padding: 8px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  &__category {
+    margin-top: 20px;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  &__heading {
+    font-size: 24px;
+    font-weight: 500;
+    color: #d0000b;
+    margin-bottom: 10px;
+  }
+
+  &__description {
+    font-size: 16px;
+    color: #555;
+    margin-top: 10px;
+  }
+
+  &__details {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.5;
+    margin-top: 10px;
+  }
+
+  &__minimum {
+    font-size: 16px;
+    color: #000000;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+}

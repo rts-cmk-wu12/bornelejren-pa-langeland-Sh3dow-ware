@@ -1,0 +1,15 @@
+@use '../utils/variables' as *;
+.divider {
+  font-family: $urbanist-font;
+  text-align: center;
+  margin: 4rem 0 2rem;
+
+  &-title {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #d72638;
+    border-bottom: 2px solid #d72638;
+    display: inline-block;
+    padding-bottom: 0.5rem;
+  }
+}
