@@ -67,7 +67,7 @@ export const SponsorRegistrationForm = () => {
         if (!emailValid || !phoneValid) return;
 
         try {
-            const response = await fetch("https://lejren-app-d53e4e2e9137.herokuapp.com/sendInformation", {
+            const response = await fetch("http://localhost:3000/sendInformation", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
