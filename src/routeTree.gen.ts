@@ -14,7 +14,6 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as ThanksImport } from './routes/thanks'
 import { Route as SponsorImport } from './routes/sponsor'
 import { Route as AboutUsImport } from './routes/about-us'
-import { Route as AWGagwgagaImport } from './routes/AWGagwgaga'
 import { Route as IndexImport } from './routes/index'
 
 // Create/Update Routes
@@ -37,12 +36,6 @@ const AboutUsRoute = AboutUsImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const AWGagwgagaRoute = AWGagwgagaImport.update({
-  id: '/AWGagwgaga',
-  path: '/AWGagwgaga',
-  getParentRoute: () => rootRoute,
-} as any)
-
 const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
@@ -58,13 +51,6 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexImport
-      parentRoute: typeof rootRoute
-    }
-    '/AWGagwgaga': {
-      id: '/AWGagwgaga'
-      path: '/AWGagwgaga'
-      fullPath: '/AWGagwgaga'
-      preLoaderRoute: typeof AWGagwgagaImport
       parentRoute: typeof rootRoute
     }
     '/about-us': {
@@ -95,7 +81,6 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/AWGagwgaga': typeof AWGagwgagaRoute
   '/about-us': typeof AboutUsRoute
   '/sponsor': typeof SponsorRoute
   '/thanks': typeof ThanksRoute
@@ -103,7 +88,6 @@ export interface FileRoutesByFullPath {
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/AWGagwgaga': typeof AWGagwgagaRoute
   '/about-us': typeof AboutUsRoute
   '/sponsor': typeof SponsorRoute
   '/thanks': typeof ThanksRoute
@@ -112,7 +96,6 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
-  '/AWGagwgaga': typeof AWGagwgagaRoute
   '/about-us': typeof AboutUsRoute
   '/sponsor': typeof SponsorRoute
   '/thanks': typeof ThanksRoute
@@ -120,16 +103,15 @@ export interface FileRoutesById {
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/AWGagwgaga' | '/about-us' | '/sponsor' | '/thanks'
+  fullPaths: '/' | '/about-us' | '/sponsor' | '/thanks'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/AWGagwgaga' | '/about-us' | '/sponsor' | '/thanks'
-  id: '__root__' | '/' | '/AWGagwgaga' | '/about-us' | '/sponsor' | '/thanks'
+  to: '/' | '/about-us' | '/sponsor' | '/thanks'
+  id: '__root__' | '/' | '/about-us' | '/sponsor' | '/thanks'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AWGagwgagaRoute: typeof AWGagwgagaRoute
   AboutUsRoute: typeof AboutUsRoute
   SponsorRoute: typeof SponsorRoute
   ThanksRoute: typeof ThanksRoute
@@ -137,7 +119,6 @@ export interface RootRouteChildren {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AWGagwgagaRoute: AWGagwgagaRoute,
   AboutUsRoute: AboutUsRoute,
   SponsorRoute: SponsorRoute,
   ThanksRoute: ThanksRoute,
@@ -154,7 +135,6 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/AWGagwgaga",
         "/about-us",
         "/sponsor",
         "/thanks"
@@ -162,9 +142,6 @@ export const routeTree = rootRoute
     },
     "/": {
       "filePath": "index.tsx"
-    },
-    "/AWGagwgaga": {
-      "filePath": "AWGagwgaga.tsx"
     },
     "/about-us": {
       "filePath": "about-us.tsx"
