@@ -2,10 +2,26 @@ import { Schema, model, connect } from 'mongoose';
 import dotenv from 'dotenv';
 import Fastify from 'fastify';
 import cors from '@fastify/cors'
+import fastifyStatic from '@fastify/static'
+import path from 'path';
+
+// important to get dirname(directory name)
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+
+
+
+
 
 // loading the .env file to ensure, you can get key
-dotenv.config({ path: '../.env' });
+const pathToEnv = path.join(__dirname, '../.env');
+dotenv.config({ path: pathToEnv});
 const mongoDbKey = process.env.MONGO_DB_KEY;
+console.log(mongoDbKey);
+
 
 
 interface ISponsorFormData {
@@ -44,6 +60,15 @@ const fastify = Fastify({
     logger: true
 });
 
+
+// very important for debugging,which gets the current path if the path would end up failing
+console.log(path.join(__dirname));
+
+fastify.register(fastifyStatic, {
+    root: path.join(__dirname, "../dist"),
+});
+
+
 //cors very important else, we wouldn't be able to make a request
 await fastify.register(cors, {
     origin: (origin, cb) => {
@@ -80,6 +105,11 @@ fastify.get('/getInformation', async (_request, reply) => {
     }
 });
 
+
+// Serving the dist/index.html
+fastify.get('/', async (_request, reply) => {
+    return reply.sendFile('index.html'); // this just looks for dist/index.html
+});
 
 
 // Listen on port 3001 for development purposes since vite has 3000 very important.
