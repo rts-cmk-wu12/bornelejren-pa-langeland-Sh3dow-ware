@@ -111,10 +111,17 @@ fastify.get('/getInformation', async (_request, reply) => {
 });
 
 
+const availablePaths = ["/", "/about-us", "/thanks",  "/contact", "/sponsor"];
+
 // Serving the dist/index.html
-fastify.get('*', async (_request, reply) => {
-    return reply.sendFile('index.html'); // this just looks for dist/index.html
-});
+
+availablePaths.map((path) => {
+    fastify.get(path, async (_request, reply) => {
+        return reply.sendFile('index.html'); // this just looks for dist/index.html
+    });
+
+})
+
 
 
 // Listen on port 3001 for development purposes since vite has 3000 very important
