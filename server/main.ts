@@ -13,7 +13,7 @@ const __dirname = dirname(__filename);
 
 
 // Adding port
-const PORT = process.env.PORT || 3000;
+const PORT = parseInt(process.env.PORT || "3000", 10);
 
 
 
