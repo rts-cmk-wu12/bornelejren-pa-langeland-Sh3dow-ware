@@ -112,7 +112,7 @@ fastify.get('/getInformation', async (_request, reply) => {
 
 
 // Serving the dist/index.html
-fastify.get('/*', async (_request, reply) => {
+fastify.get('*', async (_request, reply) => {
     return reply.sendFile('index.html'); // this just looks for dist/index.html
 });
 
