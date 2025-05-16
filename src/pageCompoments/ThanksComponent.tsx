@@ -19,7 +19,7 @@ export const ThanksComponent = () => {
     useEffect(() => {
         const fetchSponsors = async () => {
             try {
-                const response = await fetch("http://localhost:3001/getInformation");
+                const response = await fetch("https://lejren-app-d53e4e2e9137.herokuapp.com/getInformation");
                 if (!response.ok) throw new Error("Could not fetch sponsors");
 
                 const data = await response.json();
