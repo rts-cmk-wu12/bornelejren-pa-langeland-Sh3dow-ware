@@ -8,7 +8,7 @@
     "build": "vite build && tsc",
     "serve": "vite preview",
     "test": "vitest run",
-    "start_server": "npm run build && tsx server/main.ts"
+    "start_server": "npm run build && node server/main.js"
   },
   "dependencies": {
     "@fastify/cors": "^11.0.1",
