@@ -33,22 +33,28 @@ interface ISponsorFormData {
     address: string;
     email: string;
     phone: string;
-    supportType: string;
-    amount: string;
+    supportType: 'lejrsponsorat' | 'børnesponsorat' | 'foreningsstøtte';
+    amount: number;
     companyName: string;
 }
 
 const uri = `mongodb+srv://randomacc12411:${mongoDbKey}@cluster0.y0nio.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
 
 
+
 const sponsorFormDataSchema = new Schema<ISponsorFormData>({
     address: { type: String, required: true },
     email: { type: String, required: true },
     phone: { type: String, required: true },
-    supportType: { type: String, required: true },
-    amount: { type: String, required: true },
+    supportType: {
+        type: String,
+        required: true,
+        enum: ['lejrsponsorat', 'børnesponsorat', 'foreningsstøtte'],
+    },
+    amount: { type: Number, required: true },
     companyName: { type: String, required: true },
 });
+
 
 const FormDataModel = model<ISponsorFormData>('SponsorFormData', sponsorFormDataSchema);
 
@@ -89,8 +95,52 @@ await fastify.register(cors, {
 
 fastify.post('/sendInformation', async (request, reply) => {
     try {
-        const data = request.body as ISponsorFormData;
-        const newSponsor = new FormDataModel(data);
+        const rawData = request.body as ISponsorFormData;
+
+        const errors: string[] = [];
+
+        const validateEmail = (email: string) =>
+            /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+        const validatePhone = (phone: string) =>
+            /^[0-9+\-\s()]{7,20}$/.test(phone);
+
+        const allowedSupportTypes = ['lejrsponsorat', 'børnesponsorat', 'foreningsstøtte'];
+
+        if (!allowedSupportTypes.includes(rawData.supportType)) {
+            errors.push('Invalid support type. Must be one of: lejrsponsorat, børnesponsorat, foreningsstøtte.');
+        }
+
+        const parsedAmount = parseInt(rawData.amount as unknown as string, 10);
+        if (isNaN(parsedAmount) || parsedAmount <= 0) {
+            errors.push('Amount must be a valid number greater than 0.');
+        }
+
+        if (!validateEmail(rawData.email)) {
+            errors.push('Invalid email address.');
+        }
+
+        if (!validatePhone(rawData.phone)) {
+            errors.push('Invalid phone number.');
+        }
+
+        ['address', 'companyName'].forEach(field => {
+            if (!rawData[field as keyof ISponsorFormData]) {
+                errors.push(`${field} is required.`);
+            }
+        });
+
+        if (errors.length > 0) {
+            reply.code(400).send({ success: false, message: 'Validation failed.', errors });
+            return;
+        }
+
+        const sanitizedData: ISponsorFormData = {
+            ...rawData,
+            amount: parsedAmount,
+        };
+
+        const newSponsor = new FormDataModel(sanitizedData);
         await newSponsor.save();
         reply.code(201).send({ success: true, message: 'Sponsor data saved successfully.' });
     } catch (error) {
@@ -100,9 +150,14 @@ fastify.post('/sendInformation', async (request, reply) => {
 });
 
 
+
 fastify.get('/getInformation', async (_request, reply) => {
     try {
-        const sponsors = await FormDataModel.find();
+        const sponsors = await FormDataModel.find({}, {
+            email: 0,
+            phone: 0,
+            __v: 0
+        });
         reply.code(200).send(sponsors);
     } catch (error) {
         console.error('Failed to retrieve sponsor data:', error);
