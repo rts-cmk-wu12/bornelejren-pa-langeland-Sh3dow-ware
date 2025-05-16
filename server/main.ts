@@ -17,11 +17,14 @@ const __dirname = dirname(__filename);
 
 
 // loading the .env file to ensure, you can get key
-const pathToEnv = path.join(__dirname, '../.env');
-dotenv.config({ path: pathToEnv});
+if (process.env.NODE_ENV !== 'production') {
+    const pathToEnv = path.join(__dirname, '../.env');
+    dotenv.config({ path: pathToEnv });
+}
+
+// Works in both local and Heroku
 const mongoDbKey = process.env.MONGO_DB_KEY;
 console.log(mongoDbKey);
-
 
 
 interface ISponsorFormData {
